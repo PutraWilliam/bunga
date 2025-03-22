@@ -1,5 +1,5 @@
 <head>
-  <title>Bungaa</title>
+  <title>Flower Animation</title>
   <!-- <link rel="stylesheet" href="style.scss" /> -->
   <style>
     *,
@@ -13,6 +13,13 @@
     :root {
       --dark-color: #000;
     }
+
+    /* body {
+      background-color: #000;
+      margin: 0;
+      overflow: hidden;
+      background-repeat: no-repeat;
+    } */
 
     body {
       display: flex;
@@ -69,6 +76,7 @@
     .flowers {
       position: relative;
       transform: scale(0.9);
+      bottom: -3.9rem;
     }
 
     .flower {
@@ -649,11 +657,11 @@
       height: 50vmin;
       border-top-left-radius: 100%;
       border-left: 2vmin solid #079097;
-      background-image: linear-gradient(
+      /* background-image: linear-gradient(
         to bottom,
         transparent,
         var(--dark-color) 60%
-      );
+      ); */
       -webkit-mask-image: linear-gradient(to top, transparent 30%, #079097 60%);
     }
     .flower__g-right--1 {
@@ -1238,11 +1246,50 @@
       background-color: #ffc0cb; /* Cream color */
       background-image: linear-gradient(to top, #ffc0cb, #ffc0cb);
     }
+
+    .love-line {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: repeating-linear-gradient(
+        90deg,
+        red,
+        red 10px,
+        transparent 10px,
+        transparent 20px
+      );
+      z-index: -1; /* Ensure it stays in the background */
+      animation: move-love-line 5s linear infinite;
+    }
+
+    @keyframes move-love-line {
+      from {
+        background-position: 0;
+      }
+      to {
+        background-position: 100px;
+      }
+    }
+  </style>
+
+  <style>
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* Place it behind other elements */
+    }
   </style>
 </head>
 
 <body class="not-loaded">
   <div class="night"></div>
+  <canvas id="canvas"></canvas>
+
   <div class="flowers">
     <div class="flower flower--1">
       <div class="flower__leafs flower__leafs--1">
@@ -1554,11 +1601,20 @@
   </div>
 </body>
 
+<script src="script.js"></script>
+
 <script>
   onload = () => {
     const c = setTimeout(() => {
       document.body.classList.remove("not-loaded");
       clearTimeout(c);
     }, 1000);
+
+    setTimeout(() => {
+      const nightElement = document.querySelector(".night");
+      if (nightElement) {
+        nightElement.classList.remove("night");
+      }
+    }, 6000);
   };
 </script>
